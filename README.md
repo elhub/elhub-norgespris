@@ -47,7 +47,7 @@ We welcome your feedback and contributions. Use:
 See the
 [Contributing](https://github.com/elhub/auth-grant-manager/blob/main/.github/CONTRIBUTING.md) file for general guidelines.
 
-## License
+## 🪪 License
 
 This project is licensed under the MIT License - see the
 [LICENSE](https://github.com/elhub/auth-grant-manager/blob/main/LICENSE) file for details.
