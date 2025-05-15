@@ -1,188 +1,187 @@
-  ```yaml
-  openapi: 3.0.3
-  info:
-    title: Contracts JSON:API
-    description: API for managing contracts, compliant with JSON:API v1.0. Norgespris is a contract type.
-    version: 1.0.0
-    license:
-      name: MIT
-      url: https://opensource.org/licenses/MIT
-  security:
-    - bearerAuth: []
-  servers:
-    - url: https://api.elhub.no/v1/contracts
-      description: Production server
-  paths:
-    /contracts:
-      get:
-        summary: Get all contracts
-        description: Get all contracts
-        operationId: getContracts
-        parameters:
-          - name: filter[contractType]
-            in: query
-            description: Filter by contract type (e.g., Norgespris)
-            required: false
-            schema:
-              type: string
-              enum: [Norgespris, Balance Supply Contract, Grid Access Contract, Third Party Access Contract]
-          - name: filter[meteringPoint.id]
-            in: query
-            description: Filter by metering point ID
-            required: false
-            schema:
-              type: string
-        responses:
-          "200":
-            description: Successfully get contracts
-            content:
-              application/vnd.api+json:
-                schema:
-                  $ref: "#/components/schemas/ContractResponse"
-          "400":
-            description: Bad Request - When the request is invalid
-            content:
-              application/vnd.api+json:
-                schema:
-                  $ref: "#/components/schemas/Error"
-          "404":
-            description: Contract not found
-            content:
-              application/vnd.api+json:
-                schema:
-                  $ref: "#/components/schemas/Error"
-          "500":
-            description: Internal Server Error
-            content:
-              application/vnd.api+json:
-                schema:
-                  $ref: "#/components/schemas/Error"
-      post:
-        summary: Create a contract
-        description: Create a contract entity identified by meteringPointId.
-        operationId: postContracts
-        requestBody:
-          required: true
+openapi: 3.0.3
+info:
+  title: Contracts JSON:API
+  description: API for managing contracts, compliant with JSON:API v1.0. Norgespris is a contract type.
+  version: 1.0.0
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+security:
+  - bearerAuth: []
+servers:
+  - url: https://api.elhub.no/v1/contracts
+    description: Production server
+paths:
+  /contracts:
+    get:
+      summary: Get all contracts
+      description: Get all contracts
+      operationId: getContracts
+      parameters:
+        - name: filter[contractType]
+          in: query
+          description: Filter by contract type (e.g., Norgespris)
+          required: false
+          schema:
+            type: string
+            enum: [Norgespris, Balance Supply Contract, Grid Access Contract, Third Party Access Contract]
+        - name: filter[meteringPoint.id]
+          in: query
+          description: Filter by metering point ID
+          required: false
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successfully get contracts
           content:
             application/vnd.api+json:
               schema:
-                $ref: "#/components/schemas/ContractRequest"
-        responses:
-          "201":
-            description: Successfully created contract
-            content:
-              application/vnd.api+json:
-                schema:
-                  $ref: "#/components/schemas/ContractResponse"
-          "400":
-            description: Bad Request - When the request is invalid
-            content:
-              application/vnd.api+json:
-                schema:
-                  $ref: "#/components/schemas/Error"
-          "500":
-            description: Internal Server Error
-            content:
-              application/vnd.api+json:
-                schema:
-                  $ref: "#/components/schemas/Error"
-    /contracts/{contractId}:
-      get:
-        summary: Get a single contract by ID
-        description: Get a single contract entity identified by ID.
-        operationId: getContractById
-        parameters:
-          - name: contractId
-            in: path
-            description: The ID of the contract to retrieve.
-            required: true
-            schema:
-              type: string
-        responses:
-          "200":
-            description: Successfully retrieved contract
-            content:
-              application/vnd.api+json:
-                schema:
-                  $ref: "#/components/schemas/ContractResponse"
-          "400":
-            description: Bad Request - When the request is invalid
-            content:
-              application/vnd.api+json:
-                schema:
-                  $ref: "#/components/schemas/Error"
-          "404":
-            description: Contract not found
-            content:
-              application/vnd.api+json:
-                schema:
-                  $ref: "#/components/schemas/Error"
-          "500":
-            description: Internal Server Error
-            content:
-              application/vnd.api+json:
-                schema:
-                  $ref: "#/components/schemas/Error"
-      patch:
-        summary: Update a contract by ID
-        description: Update a contract entity identified by ID.
-        operationId: patchContractById
-        parameters:
-          - name: contractId
-            in: path
-            description: The ID of the contract to update.
-            required: true
-            schema:
-              type: string
-        requestBody:
-          required: true
+                $ref: "#/components/schemas/ContractResponse"
+        "400":
+          description: Bad Request - When the request is invalid
           content:
             application/vnd.api+json:
               schema:
-                $ref: "#/components/schemas/ContractRequest"
-        responses:
-          "200":
-            description: Successfully updated contract
-            content:
-              application/vnd.api+json:
-                schema:
-                  $ref: "#/components/schemas/ContractResponse"
-          "400":
-            description: Bad Request - When the request is invalid
-            content:
-              application/vnd.api+json:
-                schema:
-                  $ref: "#/components/schemas/Error"
-          "404":
-            description: Contract not found
-            content:
-              application/vnd.api+json:
-                schema:
-                  $ref: "#/components/schemas/Error"
-          "500":
-            description: Internal Server Error
-            content:
-              application/vnd.api+json:
-                schema:
-                  $ref: "#/components/schemas/Error"
-  components:
-    schemas:
-      ContractResponse:
-        $ref: "https://api.elhub.no/schemas/contract-response-schema.json"
-      ContractRequest:
-        $ref: "https://api.elhub.no/schemas/contract-request-schema.json"
-      Contract:
-        $ref: "https://api.elhub.no/schemas/contract-schema.json#/definitions/contract"
-      ContractAttributes:
-        $ref: "https://api.elhub.no/schemas/attributes-schema.json#/definitions/attributes"
-      Meta:
-        $ref: "https://api.elhub.no/schemas/meta-schema.json#/definitions/meta"
-      Error:
-        $ref: "https://api.elhub.no/schemas/json-api-error-schema.json"
-      Relationships:
-        $ref: "https://api.elhub.no/schemas/relationship-link-schema.json#/definitions/relationships"
-    securitySchemes:
-      bearerAuth:
-        type: http
-        scheme: bearer
-        bearerFormat: JWT
+                $ref: "#/components/schemas/Error"
+        "404":
+          description: Contract not found
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "500":
+          description: Internal Server Error
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    post:
+      summary: Create a contract
+      description: Create a contract entity identified by meteringPointId.
+      operationId: postContracts
+      requestBody:
+        required: true
+        content:
+          application/vnd.api+json:
+            schema:
+              $ref: "#/components/schemas/ContractRequest"
+      responses:
+        "201":
+          description: Successfully created contract
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: "#/components/schemas/ContractResponse"
+        "400":
+          description: Bad Request - When the request is invalid
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "500":
+          description: Internal Server Error
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /contracts/{contractId}:
+    get:
+      summary: Get a single contract by ID
+      description: Get a single contract entity identified by ID.
+      operationId: getContractById
+      parameters:
+        - name: contractId
+          in: path
+          description: The ID of the contract to retrieve.
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successfully retrieved contract
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: "#/components/schemas/ContractResponse"
+        "400":
+          description: Bad Request - When the request is invalid
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "404":
+          description: Contract not found
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "500":
+          description: Internal Server Error
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    patch:
+      summary: Update a contract by ID
+      description: Update a contract entity identified by ID.
+      operationId: patchContractById
+      parameters:
+        - name: contractId
+          in: path
+          description: The ID of the contract to update.
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/vnd.api+json:
+            schema:
+              $ref: "#/components/schemas/ContractRequest"
+      responses:
+        "200":
+          description: Successfully updated contract
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: "#/components/schemas/ContractResponse"
+        "400":
+          description: Bad Request - When the request is invalid
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "404":
+          description: Contract not found
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "500":
+          description: Internal Server Error
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: "#/components/schemas/Error"
+components:
+  schemas:
+    ContractResponse:
+      $ref: "https://api.elhub.no/schemas/contract-response-schema.json"
+    ContractRequest:
+      $ref: "https://api.elhub.no/schemas/contract-request-schema.json"
+    Contract:
+      $ref: "https://api.elhub.no/schemas/contract-schema.json#/definitions/contract"
+    ContractAttributes:
+      $ref: "https://api.elhub.no/schemas/attributes-schema.json#/definitions/attributes"
+    Meta:
+      $ref: "https://api.elhub.no/schemas/meta-schema.json#/definitions/meta"
+    Error:
+      $ref: "https://api.elhub.no/schemas/json-api-error-schema.json"
+    Relationships:
+      $ref: "https://api.elhub.no/schemas/relationship-link-schema.json#/definitions/relationships"
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
