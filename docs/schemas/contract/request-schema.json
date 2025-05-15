@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2025-05/schema",
+  "$id": "https://api.elhub.no/schemas/contract-request-schema.json",
+  "title": "Contract Request",
+  "description": "Schema for a contract request in the Contracts JSON:API, compliant with JSON:API v1.0.",
+  "type": "object",
+  "properties": {
+    "data": {
+      "$ref": "schema.json#/definitions/request"
+    },
+    "meta": {
+      "$ref": "meta-schema.json#/definitions/meta"
+    },
+    "error": {
+      "$ref": "../json-api-error.schema.json#/definitions/error"
+    }
+  },
+  "required": ["data"],
+  "additionalProperties": false
+}

@@ -1,0 +1,63 @@
+{
+  "$schema": "https://json-schema.org/draft/2025-05/schema",
+  "$id": "https://api.elhub.no/schemas/relationship-link-schema.json",
+  "title": "Relationship Link",
+  "description": "Schema for relationship links in the Contracts JSON:API, compliant with JSON:API v1.0.",
+  "type": "object",
+  "properties": {
+    "relationships": {
+      "$ref": "#/definitions/relationships"
+    }
+  },
+
+  "definitions": {
+    "relationships": {
+      "type": ["object", "null"],
+      "properties": {
+        "createdBy": {
+          "$ref": "#/definitions/relation"
+        },
+        "meteringPoint": {
+          "$ref": "#/definitions/relation"
+        }
+      },
+      "required": ["createdBy", "meteringPoint"],
+      "additionalProperties": false
+    },
+
+    "relation": {
+      "type": "object",
+      "properties": {
+        "oneOf": [
+          {
+            "links": {}
+          },
+          {
+            "data": {
+              "type": ["object", "null"],
+              "properties": {
+                "type": {
+                  "description": "The type of the related resource.",
+                  "type": "string",
+                  "enum": ["parties", "meteringpoint"]
+                },
+                "id": {
+                  "description": "The identifier of the related resource.",
+                  "type": "string",
+                  "examples": ["GLN", "MP123"]
+                }
+              },
+              "required": ["type", "id"],
+              "additionalProperties": false
+            }
+          },
+          {
+            "meta": {}
+          }
+        ]
+      },
+      "required": ["oneOf"],
+      "additionalProperties": false
+    }
+  }
+}

@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json-schema.org/draft/2025-05/schema",
+  "$id": "https://api.elhub.no/schemas/contract-schema.json",
+  "title": "Contract",
+  "description": "Schema for a contract in the Contracts JSON:API, compliant with JSON:API v1.0.",
+  "type": "object",
+  "definitions": {
+    "contract": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "description": "The type of the resource.",
+          "type": "string",
+          "enum": ["contracts"],
+          "examples": ["contracts"]
+        },
+        "id": {
+          "description": "The unique identifier of the contract.",
+          "type": "string",
+          "format": "uuid",
+          "examples": ["4ef727d1-b672-4166-a973-aa6e412b09bb"]
+        },
+        "attributes": {
+          "$ref": "attributes-schema.json#/definitions/attributes"
+        },
+        "relationships": {
+          "$ref": "relationships-schema.json#/definitions/relationships"
+        },
+        "meta": {
+          "$ref": "meta-schema.json#/definitions/meta"
+        }
+      },
+      "required": ["type", "id", "attributes"],
+      "additionalProperties": false
+    },
+
+    "request": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "description": "The type of the resource.",
+          "type": "string",
+          "enum": ["contracts"],
+          "examples": ["contracts"]
+        },
+        "attributes": {
+          "$ref": "attributes-schema.json#/definitions/attributes"
+        },
+        "relationships": {
+          "$ref": "relationship-link-schema.json#/definitions/relationships"
+        }
+      },
+      "required": ["type", "attributes"],
+      "additionalProperties": false
+    }
+  }
+}
