@@ -1,0 +1,58 @@
+### Update a contract by ID
+PATCH https://api.elhub.no/v1/contracts/4ef727d1-b672-4166-a973-aa6e412b09bb
+Authorization: Bearer {{jwt_token}}
+Content-Type: application/vnd.api+json
+Accept: application/vnd.api+json
+
+{
+  "data": {
+    "id": "4ef727d1-b672-4166-a973-aa6e412b09bb",
+    "type": "contracts",
+    "attributes": {
+      "type": "Norgespris",
+      "status": "Activated",
+      "validFrom": "10.01.2025",
+      "validTo": "31.12.2026"
+    },
+    "relationships": {
+      "createdBy": {
+        "data": {
+          "type": "parties",
+          "id": "GLN"
+        }
+      }
+    }
+  }
+}
+
+### Expected Response (200 OK)
+# {
+#   "data": {
+#     "id": "4ef727d1-b672-4166-a973-aa6e412b09bb",
+#     "type": "contracts",
+#     "attributes": {
+#       "contractType": "Norgespris",
+#       "status": "Activated",
+#       "validFrom": "10.01.2025",
+#       "validTo": "31.12.2026"
+#     },
+#     "relationships": {
+#       "createdBy": {
+#           "data": {
+#           "type": "parties",
+#           "id": "GLN"
+#       }
+#       },
+#       "meteringPoint": {
+#         "data": {
+#           "type": "meteringpoint",
+#           "id": "MP123"
+#         }
+#       }
+#     }
+#   },
+#   "meta": {
+#     "createdAt": "2025-10-01T00:00:00Z",
+#     "updatedAt": "2025-10-01T00:00:00Z"
+#   }
+# }

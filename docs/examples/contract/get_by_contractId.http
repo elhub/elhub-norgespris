@@ -1,0 +1,30 @@
+### Get a contract by ID
+GET https://api.elhub.no/v1/contracts/4ef727d1-b672-4166-a973-aa6e412b09bb
+Authorization: Bearer {{jwt_token}}
+Accept: application/vnd.api+json
+
+### Expected Response (200 OK)
+# {
+#   "data": {
+#     "id": "4ef727d1-b672-4166-a973-aa6e412b09bb",
+#     "type": "contracts",
+#     "attributes": {
+#       "contractType": "Norgespris",
+#       "status": "Activated",
+#       "validFrom: "2025-10-01",
+#       "validTo: "2026-01-01"
+#     },
+#     "relationships": {
+#       "meteringPoint": {
+#         "data": {
+#           "type": "meteringpoint",
+#           "id": "MP123"
+#         }
+#       }
+#     }
+#   },
+#   "meta": {
+#     "createdAt": "2025-10-01T00:00:00Z",
+#     "updatedAt": "2025-10-01T00:00:00Z"
+#   }
+# }
