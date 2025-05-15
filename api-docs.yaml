@@ -1,0 +1,409 @@
+openapi: 3.0.3
+info:
+  title: Contracts JSON:API
+  description: API for managing contracts, compliant with JSON:API v1.0. Norgespris is a contract type.
+  version: 1.0.0
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+security:
+  - bearerAuth: []
+servers:
+  - url: https://api.elhub.no/v1/contracts
+    description: Production server
+paths:
+  /contracts:
+    get:
+      summary: Get all contracts
+      description: Get all contracts
+      operationId: getContracts
+      parameters:
+        - name: filter[type]
+          in: query
+          description: Filter by contract type (e.g., Norgespris)
+          required: false
+          schema:
+            type: string
+            enum: [Norgespris, Balance Supply Contract, Grid Access Contract, Third Party Access Contract]
+        - name: filter[meteringPoint.id]
+          in: query
+          description: Filter by metering point ID
+          required: false
+          schema:
+            type: string
+        - name: filter[updatedAt][gt]
+          in: query
+          description: Filter contracts updated after this timestamp (RFC 3339)
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: filter[updatedAt][lt]
+          in: query
+          description: Filter contracts updated before this timestamp (RFC 3339)
+          required: false
+          schema:
+            type: string
+            format: date-time
+      responses:
+        "200":
+          description: Successfully get contracts
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: "#/components/schemas/ContractResponse"
+              example:
+                data:
+                  id: uuid-1234
+                  type: contracts
+                  attributes:
+                    type: Norgespris
+                    status: Activated
+                    validFrom: 01.01.2026
+                    validTo: 31.12.2026
+                  relationships:
+                    createdBy:
+                      data:
+                        type: parties
+                        id: PartyGLN
+                    meteringPoint:
+                      data:
+                        type: meteringpoint
+                        id: MP123
+                meta:
+                  createdAt: "2026-01-01T00:00:00Z"
+                  updatedAt: "2026-01-01T00:00:00Z"
+        "400":
+          description: Bad Request - When the request is invalid
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: "./elhub-open-api-specs/json-api-error.yaml#/components/schemas/Error"
+              example:
+                status: "400"
+                title: Bad Request
+                detail: When the request is invalid
+        "404":
+          description: Contract not found
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: "./elhub-open-api-specs/json-api-error.yaml#/components/schemas/Error"
+              example:
+                status: "404"
+                title: Contract Not Found
+                detail: Failed to get Contract with meteringpointId 'MP999'
+        "500":
+          description: Internal Server Error
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: "./elhub-open-api-specs/json-api-error.yaml#/components/schemas/Error"
+              example:
+                status: "500"
+                title: Internal Server Error
+                detail: An unexpected error occurred
+    post:
+      summary: Create a contract
+      description: Create a contract entity identified by meteringPointId.
+      operationId: postContracts
+      requestBody:
+        required: true
+        content:
+          application/vnd.api+json:
+            schema:
+              $ref: "#/components/schemas/ContractRequest"
+            example:
+              data:
+                id: uuid-1234
+                type: contracts
+                attributes:
+                  type: Norgespris
+                  status: Activated
+                  validFrom: 01.01.2026
+                  validTo: 31.12.2026
+                relationships:
+                  createdBy:
+                    data:
+                      type: parties
+                      id: PartyGLN
+                  meteringPoint:
+                    data:
+                      type: meteringpoint
+                      id: MP123
+      responses:
+        "201":
+          description: Successfully created contract
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: "#/components/schemas/ContractResponse"
+              example:
+                data:
+                  id: uuid-1234
+                  type: contracts
+                  attributes:
+                    type: Norgespris
+                    status: Activated
+                    validFrom: 01.01.2026
+                    validTo: 31.12.2026
+                  relationships:
+                    createdBy: PartyGLN
+                meta:
+                  createdAt: "2026-01-01T00:00:00Z"
+                  updatedAt: "2026-01-01T00:00:00Z"
+        "400":
+          description: Bad Request - When the request is invalid
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: "./elhub-open-api-specs/json-api-error.yaml#/components/schemas/Error"
+              example:
+                status: "400"
+                title: Bad Request
+                detail: When the request is invalid
+        "500":
+          description: Internal Server Error
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: "./elhub-open-api-specs/json-api-error.yaml#/components/schemas/Error"
+              example:
+                status: "500"
+                title: Internal Server Error
+                detail: An unexpected error occurred
+  /contracts/{contractId}:
+    get:
+      summary: Get a single contract by ID
+      description: Get a single contract entity identified by ID.
+      operationId: getContractById
+      parameters:
+        - name: contractId
+          in: path
+          description: The ID of the contract to retrieve.
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successfully retrieved contract
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: "#/components/schemas/ContractResponse"
+              example:
+                data:
+                  id: uuid-1234
+                  type: contracts
+                  attributes:
+                    type: Norgespris
+                    status: Activated
+                  relationships:
+                    meteringPoint:
+                      data:
+                        type: meteringpoint
+                        id: MP123
+                meta:
+                  createdAt: "2026-01-01T00:00:00Z"
+                  updatedAt: "2026-01-01T00:00:00Z"
+        "400":
+          description: Bad Request - When the request is invalid
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: "./elhub-open-api-specs/json-api-error.yaml#/components/schemas/Error"
+              example:
+                status: "400"
+                title: Bad Request
+                detail: When the request is invalid
+        "404":
+          description: Contract not found
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: "./elhub-open-api-specs/json-api-error.yaml#/components/schemas/Error"
+              example:
+                status: "404"
+                title: Contract Not Found
+                detail: Failed to get contract with contractId 'uuid-1234'
+        "500":
+          description: Internal Server Error
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: "./elhub-open-api-specs/json-api-error.yaml#/components/schemas/Error"
+              example:
+                status: "500"
+                title: Internal Server Error
+                detail: An unexpected error occurred
+    patch:
+      summary: Update a contract by ID
+      description: Update a contract entity identified by ID.
+      operationId: patchContractById
+      parameters:
+        - name: contractId
+          in: path
+          description: The ID of the contract to update.
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/vnd.api+json:
+            schema:
+              $ref: "#/components/schemas/ContractRequest"
+            example:
+              data:
+                id: uuid-1234
+                type: contracts
+                attributes:
+                  type: Norgespris
+                  status: Activated
+                  validFrom: 01.01.2026
+                  validTo: 31.12.2026
+                relationships:
+                  createdBy: PartyGLN
+      responses:
+        "200":
+          description: Successfully updated contract
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: "#/components/schemas/ContractResponse"
+              example:
+                data:
+                  id: uuid-1234
+                  type: contracts
+                  attributes:
+                    type: Norgespris
+                    status: Activated
+                  relationships:
+                    meteringPoint:
+                      data:
+                        type: meteringpoint
+                        id: MP123
+                meta:
+                  createdAt: "2026-01-01T00:00:00Z"
+                  updatedAt: "2026-01-01T00:00:00Z"
+        "400":
+          description: Bad Request - When the request is invalid
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: "./elhub-open-api-specs/json-api-error.yaml#/components/schemas/Error"
+              example:
+                status: "400"
+                title: Bad Request
+                detail: When the request is invalid
+        "404":
+          description: Contract not found
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: "./elhub-open-api-specs/json-api-error.yaml#/components/schemas/Error"
+              example:
+                status: "404"
+                title: Contract not found
+                detail: Failed to find contract with contractId 'uuid-1234'
+        "500":
+          description: Internal Server Error
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: "./elhub-open-api-specs/json-api-error.yaml#/components/schemas/Error"
+              example:
+                status: "500"
+                title: Internal Server Error
+                detail: An unexpected error occurred
+components:
+  schemas:
+    ContractResponse:
+      type: object
+      required:
+        - data
+      properties:
+        data:
+          $ref: "#/components/schemas/Contract"
+        meta:
+          $ref: "#/components/schemas/Meta"
+    ContractRequest:
+      type: object
+      required:
+        - data
+      properties:
+        data:
+          $ref: "#/components/schemas/Contract"
+    Contract:
+      type: object
+      required:
+        - type
+        - id
+        - attributes
+        - relationships
+      properties:
+        type:
+          type: string
+        id:
+          type: string
+        attributes:
+          $ref: "#/components/schemas/ContractAttributes"
+        relationships:
+          type: object
+          properties:
+            createdBy:
+              type: object
+              properties:
+                data:
+                  type: object
+                  properties:
+                    type:
+                      type: string
+                      enum: [parties]
+                    id:
+                      type: string
+            meteringPoint:
+              type: object
+              properties:
+                data:
+                  type: object
+                  properties:
+                    type:
+                      type: string
+                      enum: [meteringpoint]
+                    id:
+                      type: string
+        meta:
+          $ref: "#/components/schemas/Meta"
+    ContractAttributes:
+      type: object
+      required:
+        - type
+        - status
+      properties:
+        type:
+          type: string
+          enum: [Norgespris, Balance Supply Contract, Grid Access Contract, Third Party Access Contract]
+        status:
+          type: string
+          enum: [Initiated, Activated, Expired, Cancelled]
+        validFrom:
+          type: string
+          format: date
+        validTo:
+          type: string
+          format: date
+    Meta:
+      type: object
+      properties:
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
