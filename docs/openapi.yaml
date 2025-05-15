@@ -167,19 +167,19 @@ paths:
 components:
   schemas:
     ContractResponse:
-      $ref: "https://api.elhub.no/schemas/contract-response-schema.json"
+      $ref: "./schemas/contract/response-schema.json"
     ContractRequest:
-      $ref: "https://api.elhub.no/schemas/contract-request-schema.json"
+      $ref: "./schemas/contract/request-schema.json"
     Contract:
-      $ref: "https://api.elhub.no/schemas/contract-schema.json#/definitions/contract"
+      $ref: "./schemas/contract/schema.json#/definitions/contract"
     ContractAttributes:
-      $ref: "https://api.elhub.no/schemas/attributes-schema.json#/definitions/attributes"
+      $ref: "./schemas/contract/attributes-schema.json#/definitions/attributes"
     Meta:
-      $ref: "https://api.elhub.no/schemas/meta-schema.json#/definitions/meta"
+      $ref: "./schemas/contract/meta-schema.json#/definitions/meta"
     Error:
-      $ref: "https://api.elhub.no/schemas/json-api-error-schema.json"
+      $ref: "./schemas/json-api-error.schema.json"
     Relationships:
-      $ref: "https://api.elhub.no/schemas/relationship-link-schema.json#/definitions/relationships"
+      $ref: "./schemas/contract/relationships-schema.json#/definitions/relationships"
   securitySchemes:
     bearerAuth:
       type: http
