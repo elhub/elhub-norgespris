@@ -58,8 +58,8 @@ paths:
             application/vnd.api+json:
               schema:
                 $ref: "#/components/schemas/Error"
-        "404":
-          description: Contract not found
+        "401":
+          description: Unauthorized
           content:
             application/vnd.api+json:
               schema:
@@ -89,6 +89,12 @@ paths:
                 $ref: "#/components/schemas/ContractResponse"
         "400":
           description: Bad Request - When the request is invalid
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "401":
+          description: Unauthorized
           content:
             application/vnd.api+json:
               schema:
@@ -124,8 +130,8 @@ paths:
             application/vnd.api+json:
               schema:
                 $ref: "#/components/schemas/Error"
-        "404":
-          description: Contract not found
+        "401":
+          description: Unauthorized
           content:
             application/vnd.api+json:
               schema:
@@ -166,8 +172,8 @@ paths:
             application/vnd.api+json:
               schema:
                 $ref: "#/components/schemas/Error"
-        "404":
-          description: Contract not found
+        "401":
+          description: Unauthorized
           content:
             application/vnd.api+json:
               schema:
