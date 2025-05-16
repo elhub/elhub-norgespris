@@ -34,6 +34,14 @@ paths:
           schema:
             type: string
             enum: [NorgesprisContract, BalanceSupplyContract, GridAccessContract, ThirdPartyAccessContract]
+        - name: filter[meteringPointId]
+          in: query
+          description: Filter list by metering point IDs. This is used to retrieve records based on the metering point ID.
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
         - name: filter[updatedAt][gt]
           in: query
           description: Filter contracts updated after this timestamp (RFC 3339)
@@ -145,49 +153,6 @@ paths:
                 $ref: "#/components/schemas/Error"
         "403":
           description: Forbidden
-          content:
-            application/vnd.api+json:
-              schema:
-                $ref: "#/components/schemas/Error"
-        "500":
-          description: Internal Server Error
-          content:
-            application/vnd.api+json:
-              schema:
-                $ref: "#/components/schemas/Error"
-  /contracts/{contractId}:
-    get:
-      summary: Get a single contract by ID
-      description: Get a single contract identified by ID.
-      operationId: getContractById
-      parameters:
-        - name: contractId
-          in: path
-          description: The ID of the contract to retrieve.
-          required: true
-          schema:
-            type: string
-      responses:
-        "200":
-          description: Successfully retrieved contract
-          content:
-            application/vnd.api+json:
-              schema:
-                $ref: "#/components/schemas/ContractResponse"
-        "400":
-          description: Bad Request - When the request is invalid
-          content:
-            application/vnd.api+json:
-              schema:
-                $ref: "#/components/schemas/Error"
-        "401":
-          description: Unauthorized
-          content:
-            application/vnd.api+json:
-              schema:
-                $ref: "#/components/schemas/Error"
-        "404":
-          description: Not Found
           content:
             application/vnd.api+json:
               schema:
