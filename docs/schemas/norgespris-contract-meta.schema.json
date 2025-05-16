@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2025-05/schema",
+  "$id": "https://api.elhub.no/schemas/meta.schema.json",
+  "title": "Meta",
+  "description": "Schema for meta information in the Contracts JSON:API.",
+  "type": "object",
+  "properties": {
+    "createdAt": {
+      "description": "The creation timestamp of the resource.",
+      "type": "string",
+      "format": "date-time",
+      "examples": ["2026-01-01T00:00:00Z"]
+    },
+    "updatedAt": {
+      "description": "The last update timestamp of the resource.",
+      "type": "string",
+      "format": "date-time",
+      "examples": ["2026-01-01T00:00:00Z"]
+    }
+  },
+  "required": ["createdAt", "updatedAt"],
+  "additionalProperties": false,
+  "definitions": {
+    "meta": {
+      "type": "object",
+      "properties": {
+        "createdAt": {
+          "$ref": "norgespris-contract-meta.schema.json#/properties/createdAt"
+        },
+        "updatedAt": {
+          "$ref": "norgespris-contract-meta.schema.json#/properties/updatedAt"
+        }
+      },
+      "required": ["createdAt", "updatedAt"],
+      "additionalProperties": false
+    }
+  }
+}

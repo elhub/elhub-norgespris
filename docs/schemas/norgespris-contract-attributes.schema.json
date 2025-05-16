@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2025-05/schema",
+  "$id": "https://api.elhub.no/schemas/attributes.schema.json",
+  "title": "Contract Attributes",
+  "description": "Schema for the attributes of a contract in the Contracts JSON:API.",
+  "type": "object",
+  "properties": {
+    "contractType": {
+      "description": "The type of the contract.",
+      "type": "string",
+      "enum": ["NorgesprisContract"],
+      "examples": ["NorgesprisContract"]
+    },
+    "status": {
+      "description": "The status of the contract.",
+      "type": "string",
+      "enum": ["Activate", "Inactive", "Cancelled"],
+      "examples": ["Activate"]
+    },
+    "startDate": {
+      "description": "The start date of the contract's validity period.",
+      "type": ["string"],
+      "format": "date",
+      "examples": ["2025-10-01"]
+    },
+    "endDate": {
+      "description": "The end date of the contract's validity period.",
+      "type": ["string"],
+      "format": "date",
+      "examples": ["2026-12-31"]
+    }
+  },
+  "additionalProperties": false,
+  "definitions": {
+    "attributes": {
+      "type": "object",
+      "properties": {
+        "contractType": {
+          "$ref": "norgespris-contract-attributes.schema.json#/properties/contractType"
+        },
+        "status": {
+          "$ref": "norgespris-contract-attributes.schema.json#/properties/status"
+        },
+        "validFrom": {
+          "$ref": "norgespris-contract-attributes.schema.json#/properties/startDate"
+        },
+        "validTo": {
+          "$ref": "norgespris-contract-attributes.schema.json#/properties/endDate"
+        }
+      },
+      "required": ["contractType"],
+      "additionalProperties": false
+    }
+  }
+}
