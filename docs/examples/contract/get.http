@@ -10,21 +10,21 @@ Accept: application/vnd.api+json
 #       "id": "4ef727d1-b672-4166-a973-aa6e412b09bb",
 #       "type": "contracts",
 #       "attributes": {
-#         "contractType": "Norgespris",
+#         "contractType": "NorgesprisContract",
 #         "status": "Activated",
-#         "validFrom": "2025-10-01",
-#         "validTo": "2026-01-01"
+#         "startDate": "2025-10-01",
+#         "endDate": "2026-01-01"
 #       },
 #       "relationships": {
 #         "createdBy": {
 #           "data": {
-#             "type": "parties",
+#             "type": "Party",
 #             "id": "GLN"
 #           }
 #         },
 #         "meteringPoint": {
 #           "data": {
-#             "type": "meteringpoint",
+#             "type": "MeteringPoint",
 #             "id": "MP123"
 #           }
 #         }
