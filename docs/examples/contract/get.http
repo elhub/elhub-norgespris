@@ -1,0 +1,38 @@
+### Get all contracts with filters
+GET https://api.elhub.no/v1/contracts?filter[contractType]=Norgespris&filter[meteringPoint.id]=MP123
+Authorization: Bearer {{jwt_token}}
+Accept: application/vnd.api+json
+
+### Expected Response (200 OK)
+# {
+#   "data": [
+#     {
+#       "id": "4ef727d1-b672-4166-a973-aa6e412b09bb",
+#       "type": "contracts",
+#       "attributes": {
+#         "contractType": "NorgesprisContract",
+#         "status": "Activated",
+#         "startDate": "2025-10-01",
+#         "endDate": "2026-01-01"
+#       },
+#       "relationships": {
+#         "createdBy": {
+#           "data": {
+#             "type": "Party",
+#             "id": "GLN"
+#           }
+#         },
+#         "meteringPoint": {
+#           "data": {
+#             "type": "MeteringPoint",
+#             "id": "MP123"
+#           }
+#         }
+#       }
+#     }
+#   ],
+#   "meta": {
+#     "createdAt": "2025-10-01T00:00:00Z",
+#     "updatedAt": "2025-10-01T00:00:00Z"
+#   }
+# }

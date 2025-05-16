@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/d hafta://json-schema.org/draft/2025-05/schema",
+  "$id": "https://api.elhub.no/schemas/json-api-error.schema.json",
+  "title": "JSON:API Error Response",
+  "description": "Schema for error responses in the Contracts JSON:API, compliant with JSON:API v1.0.",
+  "type": "object",
+  "properties": {
+    "errors": {
+      "$ref": "#/definitions/errors"
+    },
+    "links": {
+      "description": "Links related to the error response.",
+      "$ref": "base-definitions.schema.json#/definitions/topLevelLinks"
+    }
+  },
+  "required": ["errors"],
+  "additionalProperties": false,
+  "definitions": {
+    "error": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "description": "The HTTP status code applicable to this problem, expressed as a string value.",
+          "type": "string",
+          "examples": ["400", "404", "500"]
+        },
+        "title": {
+          "description": "A short, human-readable summary of the problem.",
+          "type": "string",
+          "examples": [
+            "Bad Request",
+            "Contract Not Found",
+            "Internal Server Error"
+          ]
+        },
+        "detail": {
+          "description": "A human-readable explanation specific to this occurrence of the problem.",
+          "type": "string",
+          "examples": [
+            "When the request is invalid",
+            "Failed to get contract with contractId '4ef727d1-b672-4166-a973-aa6e412b09bb'",
+            "An unexpected error occurred"
+          ]
+        }
+      },
+      "required": ["status", "title", "detail"],
+      "additionalProperties": false
+    },
+    "errors": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/error"
+      },
+      "uniqueItems": true,
+      "minItems": 1
+    }
+  }
+}
