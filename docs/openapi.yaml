@@ -31,6 +31,20 @@ paths:
           required: false
           schema:
             type: string
+        - name: filter[updatedAt][gt]
+          in: query
+          description: Filter contracts updated after this timestamp (RFC 3339)
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: filter[updatedAt][lt]
+          in: query
+          description: Filter contracts updated before this timestamp (RFC 3339)
+          required: false
+          schema:
+            type: string
+            format: date-time
       responses:
         "200":
           description: Successfully get contracts
