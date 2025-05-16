@@ -1,7 +1,7 @@
 openapi: 3.1.1
 info:
   title: Contracts JSON:API
-  description: API for managing contracts, compliant with JSON:API v1.0. Norgespris is a contract type.
+  description: API for managing contract information in the Elhub system. Contracts represent agreements on metering points in the Elhub system and is used to represent a variety of different relationships that can exist on a metering point. Norgespris is a type of contract in the Elhub information model.
   version: 1.0.0
   license:
     name: MIT
