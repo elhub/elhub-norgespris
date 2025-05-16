@@ -39,49 +39,6 @@ When writing issues:
 
 > If you want to ask a question, we assume that you have read the available documentation (start with ../README.md).
 
-Post your question as a new issue or comment on an existing suitable issue.
+Post your question as a new topic in discussions or comment on an existing suitable topic.
 
 We will try to respond as soon as possible.
-
-## I Want To Contribute
-
-> ### Legal Notice
-> When contributing to this project, you must agree that you have authored 100% of the content, that you have the
-> necessary rights to the content and that the content you contribute may be provided under the project license.
-
-### Reporting Bugs
-
-Before submitting a bug report, please investigate as much as you can beforehand, focusing especially on isolating
-the problem and understanding how to recreate it. Then submit the bug in the [issue tracker](#issue-tracker).
-
-### Suggesting Enhancements
-
-Before submitting an enhancement, consider whether the idea fits within the scope and aims of the project.
-[Asking a question](#i-have-a-question) can be a good starting point. Then submit the enchancement as a suggestion
-through the [issue tracker](#issue-tracker).
-
-### Your First Code Contribution
-
-Ideally, use our GitHub CLI extension ([gh-dxp](https://github.com/elhub/gh-dxp)) to enforce linting/style rules
-and format your pull request. Otherwise, use our
-[pull request template](https://github.com/elhub/devxp-project-template/blob/main/resources/.github/pull_request_template.md)
-as a starting point.
-
-The title should use present tense ("Add feature" not "Added feature") and use the imperative mood.
-
-All our code is linted with [MegaLinter](https://megalinter.io). To run linting manually, use:
-
-```bash
-npx mega-linter-runner --install
-npx mega-linter-runner --flavor cupcake -e MEGALINTER_CONFIG=https://raw.githubusercontent.com/elhub/devxp-lint-configuration/main/resources/.mega-linter.yml
-```
-
-To run the local tests, check the [README](../README.md).
-
-Providing linted _and_ tested code significantly increases the chance that a pull request will be accepted.
-
-### Improving The Documentation
-
-Markdown is our format of preference for all documentation. Submitting new or corrections to documentation follow the
-same procedure as for code. You do not need to run unit tests on documentation, but you should run the linter (which
-includes [markdownlint](https://github.com/DavidAnson/markdownlint)).
