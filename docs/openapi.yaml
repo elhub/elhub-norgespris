@@ -20,7 +20,7 @@ paths:
       parameters:
         - name: filter[contractType]
           in: query
-          description: Filter by contract type (e.g., Norgespris)
+          description: Filter by contract type. This is used to retrieve all records of a specific type; e.g., all contracts of type  Norgespris.
           required: false
           schema:
             type: string
