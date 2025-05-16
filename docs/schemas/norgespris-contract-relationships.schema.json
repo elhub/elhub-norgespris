@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2025-05/schema",
-  "$id": "https://api.elhub.no/schemas/relationship-link-schema.json",
+  "$id": "https://api.elhub.no/schemas/relationship-link.schema.json",
   "title": "Relationship Link",
   "description": "Schema for relationship links in the Contracts JSON:API, compliant with JSON:API v1.0.",
   "type": "object",
@@ -39,7 +39,7 @@
                 "type": {
                   "description": "The type of the related resource.",
                   "type": "string",
-                  "enum": ["parties", "meteringpoint"]
+                  "enum": ["Party", "MeteringPoint"]
                 },
                 "id": {
                   "description": "The identifier of the related resource.",

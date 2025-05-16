@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/d hafta://json-schema.org/draft/2025-05/schema",
-  "$id": "https://api.elhub.no/schemas/json-api-error-schema.json",
+  "$id": "https://api.elhub.no/schemas/json-api-error.schema.json",
   "title": "JSON:API Error Response",
   "description": "Schema for error responses in the Contracts JSON:API, compliant with JSON:API v1.0.",
   "type": "object",
@@ -11,10 +11,6 @@
     "links": {
       "description": "Links related to the error response.",
       "$ref": "base-definitions.schema.json#/definitions/topLevelLinks"
-    },
-    "meta": {
-      "description": "Meta information about the error response.",
-      "$ref": "base-definitions.schema.json#/definitions/topLevelMeta"
     }
   },
   "required": ["errors"],

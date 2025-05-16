@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2025-05/schema",
-  "$id": "https://api.elhub.no/schemas/meta-schema.json",
+  "$id": "https://api.elhub.no/schemas/meta.schema.json",
   "title": "Meta",
   "description": "Schema for meta information in the Contracts JSON:API.",
   "type": "object",
@@ -25,10 +25,10 @@
       "type": "object",
       "properties": {
         "createdAt": {
-          "$ref": "meta-schema.json#/properties/createdAt"
+          "$ref": "norgespris-contract-meta.schema.json#/properties/createdAt"
         },
         "updatedAt": {
-          "$ref": "meta-schema.json#/properties/updatedAt"
+          "$ref": "norgespris-contract-meta.schema.json#/properties/updatedAt"
         }
       },
       "required": ["createdAt", "updatedAt"],

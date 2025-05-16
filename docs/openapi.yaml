@@ -1,21 +1,30 @@
 openapi: 3.1.1
 info:
   title: Contracts JSON:API
-  description: API for managing contract information in the Elhub system. Contracts represent agreements on metering points in the Elhub system and is used to represent a variety of different relationships that can exist on a metering point. Norgespris is a type of contract in the Elhub information model.
-  version: 1.0.0
+  description: >
+    API for managing contract information in the Elhub system.
+    Contracts represent agreements on metering points in the Elhub system and is used to represent a variety of different relationships
+    that can exist on a metering point. Norgespris is a type of contract in the Elhub information model.
+  version: 0.0.1
+  x-date: 2025-05-16
+  x-status: Development
+  contact:
+    name: team-wow
   license:
     name: MIT
     url: https://opensource.org/licenses/MIT
 security:
   - bearerAuth: []
 servers:
-  - url: https://api.elhub.no/v1/contracts
-    description: Production server
+  - url: https://test.elhub.no/v1/contracts
+    description: Test server
 paths:
   /contracts:
     get:
       summary: Get all contracts
-      description: Get all contracts which you (as a market party or end user) are entitled to view. In almost all cases, this means you must have a valid contract on the metering point in order to retrieve information about it.
+      description: >
+        Get all contracts which you (as a market party or end user) are entitled to view.
+        In almost all cases, this means you must have a valid contract on the metering point in order to retrieve information about it.
       operationId: getContracts
       parameters:
         - name: filter[contractType]
@@ -24,13 +33,7 @@ paths:
           required: false
           schema:
             type: string
-            enum: [Norgespris, Balance Supply Contract, Grid Access Contract, Third Party Access Contract]
-        - name: filter[meteringPoint.id]
-          in: query
-          description: Filter by metering point ID
-          required: false
-          schema:
-            type: string
+            enum: [NorgesprisContract, BalanceSupplyContract, GridAccessContract, ThirdPartyAccessContract]
         - name: filter[updatedAt][gt]
           in: query
           description: Filter contracts updated after this timestamp (RFC 3339)
@@ -64,12 +67,6 @@ paths:
             application/vnd.api+json:
               schema:
                 $ref: "#/components/schemas/Error"
-        "403":
-          description: Forbidden
-          content:
-            application/vnd.api+json:
-              schema:
-                $ref: "#/components/schemas/Error"
         "500":
           description: Internal Server Error
           content:
@@ -78,8 +75,8 @@ paths:
                 $ref: "#/components/schemas/Error"
     post:
       summary: Create a contract
-      description: Create a contract entity identified by meteringPointId.
-      operationId: postContracts
+      description: Create one or more contracts linked to meteringPointId(s).
+      operationId: createContracts
       requestBody:
         required: true
         content:
@@ -117,60 +114,10 @@ paths:
             application/vnd.api+json:
               schema:
                 $ref: "#/components/schemas/Error"
-  /contracts/{contractId}:
-    get:
-      summary: Get a single contract by ID
-      description: Get a single contract entity identified by ID.
-      operationId: getContractById
-      parameters:
-        - name: contractId
-          in: path
-          description: The ID of the contract to retrieve.
-          required: true
-          schema:
-            type: string
-      responses:
-        "200":
-          description: Successfully retrieved contract
-          content:
-            application/vnd.api+json:
-              schema:
-                $ref: "#/components/schemas/ContractResponse"
-        "400":
-          description: Bad Request - When the request is invalid
-          content:
-            application/vnd.api+json:
-              schema:
-                $ref: "#/components/schemas/Error"
-        "401":
-          description: Unauthorized
-          content:
-            application/vnd.api+json:
-              schema:
-                $ref: "#/components/schemas/Error"
-        "403":
-          description: Forbidden
-          content:
-            application/vnd.api+json:
-              schema:
-                $ref: "#/components/schemas/Error"
-        "500":
-          description: Internal Server Error
-          content:
-            application/vnd.api+json:
-              schema:
-                $ref: "#/components/schemas/Error"
     patch:
-      summary: Update a contract by ID
-      description: Update a contract entity identified by ID.
-      operationId: patchContractById
-      parameters:
-        - name: contractId
-          in: path
-          description: The ID of the contract to update.
-          required: true
-          schema:
-            type: string
+      summary: Update contracts
+      description: Update a set of contracts.
+      operationId: updateContracts
       requestBody:
         required: true
         content:
@@ -208,22 +155,65 @@ paths:
             application/vnd.api+json:
               schema:
                 $ref: "#/components/schemas/Error"
+  /contracts/{contractId}:
+    get:
+      summary: Get a single contract by ID
+      description: Get a single contract identified by ID.
+      operationId: getContractById
+      parameters:
+        - name: contractId
+          in: path
+          description: The ID of the contract to retrieve.
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successfully retrieved contract
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: "#/components/schemas/ContractResponse"
+        "400":
+          description: Bad Request - When the request is invalid
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "401":
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "404":
+          description: Not Found
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "500":
+          description: Internal Server Error
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: "#/components/schemas/Error"
 components:
   schemas:
     ContractResponse:
-      $ref: "./schemas/contract/response-schema.json"
+      $ref: "./schemas/norgespris-contract-response.schema.json"
     ContractRequest:
-      $ref: "./schemas/contract/request-schema.json"
+      $ref: "./schemas/norgespris-contract-request.schema.json"
     Contract:
-      $ref: "./schemas/contract/schema.json#/definitions/contract"
+      $ref: "./schemas/norgespris-contract.schema.json#/definitions/contract"
     ContractAttributes:
-      $ref: "./schemas/contract/attributes-schema.json#/definitions/attributes"
+      $ref: "./schemas/norgespris-contract-attributes.schema.json#/definitions/attributes"
     Meta:
-      $ref: "./schemas/contract/meta-schema.json#/definitions/meta"
+      $ref: "./schemas/norgespris-contract-meta.schema.json#/definitions/meta"
     Error:
       $ref: "./schemas/json-api-error.schema.json"
     Relationships:
-      $ref: "./schemas/contract/relationships-schema.json#/definitions/relationships"
+      $ref: "./schemas/norgespris-contract-relationships.schema.json#/definitions/relationships"
   securitySchemes:
     bearerAuth:
       type: http
