@@ -68,21 +68,6 @@ paths:
           content:
             application/vnd.api+json:
               schema:
-                $ref: "./elhub-open-api-specs/json-api-error.yaml#/components/schemas/Error"
-              example:
-                status: "400"
-                title: Bad Request
-                detail: When the request is invalid
-        "404":
-          description: Contract not found
-          content:
-            application/vnd.api+json:
-              schema:
-                $ref: "./elhub-open-api-specs/json-api-error.yaml#/components/schemas/Error"
-              example:
-                status: "404"
-                title: Contract Not Found
-                detail: Failed to get Contract with meteringpointId 'MP999'
                 $ref: "#/components/schemas/Error"
         "401":
           description: Unauthorized
