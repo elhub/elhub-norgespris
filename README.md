@@ -31,7 +31,7 @@ Version: v0.1 (Pre-release)
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/elhub/api-specs.git
+   git clone https://github.com/elhub/elhub-norgespris.git
    ```
 2. Navigate the specification files in the openapi/ and schemas/ directories.
 3. Use an IDE or similar tool with Swagger UI support visualize and explore the OpenAPI spec locally.
