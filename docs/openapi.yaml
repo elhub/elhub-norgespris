@@ -15,7 +15,7 @@ paths:
   /contracts:
     get:
       summary: Get all contracts
-      description: Get all contracts
+      description: Get all contracts which you (as a market party or end user) are entitled to view. In almost all cases, this means you must have a valid contract on the metering point in order to retrieve information about it.
       operationId: getContracts
       parameters:
         - name: filter[contractType]
