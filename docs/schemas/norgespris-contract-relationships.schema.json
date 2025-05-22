@@ -17,11 +17,14 @@
         "createdBy": {
           "$ref": "#/definitions/relation"
         },
+        "updatedBy": {
+          "$ref": "#/definitions/relation"
+        },
         "meteringPoint": {
           "$ref": "#/definitions/relation"
         }
       },
-      "required": ["createdBy", "meteringPoint"],
+      "required": ["createdBy", "updatedBy", "meteringPoint"],
       "additionalProperties": false
     },
 
