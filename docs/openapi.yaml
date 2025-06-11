@@ -163,6 +163,102 @@ paths:
             application/vnd.api+json:
               schema:
                 $ref: "#/components/schemas/Error"
+  /contracts/{contractId}:
+    get:
+      summary: Get a single contract by ID
+      description: Get a single contract entity identified by ID.
+      operationId: getContractById
+      parameters:
+        - name: contractId
+          in: path
+          description: The ID of the contract to retrieve.
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successfully get contract by ID
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: "#/components/schemas/ContractResponse"
+        "400":
+          description: Bad Request - When the request is invalid
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "401":
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "500":
+          description: Internal Server Error
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    patch:
+      summary: Update a contract by ID
+      description: Update a contract entity identified by ID.
+      operationId: patchContractById
+      parameters:
+        - name: contractId
+          in: path
+          description: The ID of the contract to update.
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/vnd.api+json:
+            schema:
+              $ref: "#/components/schemas/ContractRequest"
+            example:
+              data:
+                id: uuid-1234
+                type: contracts
+                attributes:
+                  type: Norgespris
+                  status: Activated
+                  validFrom: 01.01.2026
+                  validTo: 31.12.2026
+                relationships:
+                  createdBy: PartyGLN
+      responses:
+        "200":
+          description: Successfully updated contract
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: "#/components/schemas/ContractResponse"
+        "400":
+          description: Bad Request - When the request is invalid
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "401":
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "403":
+          description: Forbidden
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "500":
+          description: Internal Server Error
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: "#/components/schemas/Error"
 components:
   schemas:
     ContractResponse:
