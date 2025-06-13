@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2025-05/schema",
-  "$id": "https://api.elhub.no/schemas/attributes.schema.json",
+  "$id": "https://api.elhub.no/schemas/norgespris-contract-attributes.schema.json",
   "title": "Contract Attributes",
   "description": "Schema for the attributes of a contract in the Contracts JSON:API.",
   "type": "object",
@@ -8,14 +8,14 @@
     "contractType": {
       "description": "The type of the contract.",
       "type": "string",
-      "enum": ["NorgesprisContract"],
-      "examples": ["NorgesprisContract"]
+      "enum": ["Norgespris"],
+      "examples": ["Norgespris"]
     },
     "status": {
       "description": "The status of the contract.",
       "type": "string",
-      "enum": ["Activate", "Inactive", "Cancelled"],
-      "examples": ["Activate"]
+      "enum": ["Initiated", "Cancelled", "Activated", "Expired"],
+      "examples": ["Initiated"]
     },
     "startDate": {
       "description": "The start date of the contract's validity period.",

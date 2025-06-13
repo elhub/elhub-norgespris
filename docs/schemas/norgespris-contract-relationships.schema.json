@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2025-05/schema",
-  "$id": "https://api.elhub.no/schemas/relationship-link.schema.json",
+  "$id": "https://api.elhub.no/schemas/norgespris-contract-relationship-link.schema.json",
   "title": "Relationship Link",
   "description": "Schema for relationship links in the Contracts JSON:API, compliant with JSON:API v1.0.",
   "type": "object",
@@ -9,7 +9,6 @@
       "$ref": "#/definitions/relationships"
     }
   },
-
   "definitions": {
     "relationships": {
       "type": ["object", "null"],
@@ -17,49 +16,47 @@
         "createdBy": {
           "$ref": "#/definitions/relation"
         },
-        "updatedBy": {
-          "$ref": "#/definitions/relation"
-        },
         "meteringPoint": {
           "$ref": "#/definitions/relation"
         }
       },
-      "required": ["createdBy", "updatedBy", "meteringPoint"],
+      "required": ["createdBy", "meteringPoint"],
       "additionalProperties": false
     },
-
     "relation": {
       "type": "object",
       "properties": {
-        "oneOf": [
-          {
-            "links": {}
-          },
-          {
-            "data": {
-              "type": ["object", "null"],
-              "properties": {
-                "type": {
-                  "description": "The type of the related resource.",
-                  "type": "string",
-                  "enum": ["Party", "MeteringPoint"]
-                },
-                "id": {
-                  "description": "The identifier of the related resource.",
-                  "type": "string",
-                  "examples": ["GLN", "MP123"]
-                }
-              },
-              "required": ["type", "id"],
-              "additionalProperties": false
+        "links": {
+          "type": "object",
+          "description": "Links related to the relation."
+        },
+        "data": {
+          "type": ["object", "null"],
+          "properties": {
+            "type": {
+              "description": "The type of the related resource.",
+              "type": "string",
+              "enum": ["Party", "MeteringPoint"]
+            },
+            "id": {
+              "description": "The identifier of the related resource.",
+              "type": "string",
+              "examples": ["GLN", "MP123"]
             }
           },
-          {
-            "meta": {}
-          }
-        ]
+          "required": ["type", "id"],
+          "additionalProperties": false
+        },
+        "meta": {
+          "type": "object",
+          "description": "Meta information about the relation."
+        }
       },
-      "required": ["oneOf"],
+      "oneOf": [
+        { "required": ["links"] },
+        { "required": ["data"] },
+        { "required": ["meta"] }
+      ],
       "additionalProperties": false
     }
   }

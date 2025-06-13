@@ -1,5 +1,5 @@
 {
-  "$schema": "https://json-schema.org/d hafta://json-schema.org/draft/2025-05/schema",
+  "$schema": "https://json-schema.org/draft/2025-05/schema",
   "$id": "https://api.elhub.no/schemas/json-api-error.schema.json",
   "title": "JSON:API Error Response",
   "description": "Schema for error responses in the Contracts JSON:API, compliant with JSON:API v1.0.",
