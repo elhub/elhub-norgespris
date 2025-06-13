@@ -11,13 +11,13 @@ info:
   license:
     name: MIT
     url: https://opensource.org/licenses/MIT
-security:
-  - bearerAuth: []
 servers:
   - url: http://127.0.0.0:8080/v1
     description: Local test server
   - url: https://test.elhub.no/v1
     description: Test server
+security:
+  - bearerAuth: []
 paths:
   /contracts:
     get:
@@ -33,7 +33,11 @@ paths:
           required: false
           schema:
             type: string
-            enum: [NorgesprisContract, BalanceSupplyContract, GridAccessContract, ThirdPartyAccessContract]
+            enum:
+              - NorgesprisContract
+              - BalanceSupplyContract
+              - GridAccessContract
+              - ThirdPartyAccessContract
         - name: filter[meteringPointId]
           in: query
           description: Filter list by metering point IDs. This is used to retrieve records based on the metering point ID.
@@ -252,25 +256,262 @@ components:
   schemas:
     ContractResponse:
       allOf:
-        - $ref: "./schemas/norgespris-contract-response.schema.json#/definitions/response"
+        - $ref: "#/components/schemas/response"
     ContractRequest:
       allOf:
-        - $ref: "./schemas/norgespris-contract-request.schema.json#/definitions/request"
+        - $ref: "#/components/schemas/definitions-request"
     Contract:
       allOf:
-        - $ref: "./schemas/norgespris-contract.schema.json#/definitions/contract"
+        - $ref: "#/components/schemas/contract"
     ContractAttributes:
       allOf:
-        - $ref: "./schemas/norgespris-contract-attributes.schema.json#/definitions/attributes"
+        - $ref: "#/components/schemas/attributes"
     Meta:
       allOf:
-        - $ref: "./schemas/norgespris-contract-meta.schema.json#/definitions/meta"
+        - $ref: "#/components/schemas/meta"
     Error:
       allOf:
-        - $ref: "./schemas/json-api-error.schema.json#/definitions/error"
+        - $ref: "#/components/schemas/error"
     Relationships:
       allOf:
-        - $ref: "./schemas/norgespris-contract-relationships.schema.json#/definitions/relationships"
+        - $ref: "#/components/schemas/relationships"
+    contractType:
+      description: The type of the contract.
+      type: string
+      enum:
+        - Norgespris
+      examples:
+        - Norgespris
+    status:
+      description: The status of the contract.
+      type: string
+      enum:
+        - Initiated
+        - Cancelled
+        - Activated
+        - Expired
+      examples:
+        - Initiated
+    startDate:
+      description: The start date of the contract's validity period.
+      type:
+        - string
+      format: date
+      examples:
+        - "2025-10-01"
+    endDate:
+      description: The end date of the contract's validity period.
+      type:
+        - string
+      format: date
+      examples:
+        - "2026-12-31"
+    attributes:
+      type: object
+      properties:
+        contractType:
+          $ref: "#/components/schemas/contractType"
+        status:
+          $ref: "#/components/schemas/status"
+        validFrom:
+          $ref: "#/components/schemas/startDate"
+        validTo:
+          $ref: "#/components/schemas/endDate"
+      required:
+        - contractType
+      additionalProperties: false
+    relation:
+      type: object
+      properties:
+        links:
+          type: object
+          description: Links related to the relation.
+        data:
+          type:
+            - object
+            - "null"
+          properties:
+            type:
+              description: The type of the related resource.
+              type: string
+              enum:
+                - Party
+                - MeteringPoint
+            id:
+              description: The identifier of the related resource.
+              type: string
+              examples:
+                - GLN
+                - MP123
+          required:
+            - type
+            - id
+          additionalProperties: false
+        meta:
+          type: object
+          description: Meta information about the relation.
+      oneOf:
+        - required:
+            - links
+        - required:
+            - data
+        - required:
+            - meta
+      additionalProperties: false
+    relationships:
+      type:
+        - object
+        - "null"
+      properties:
+        createdBy:
+          $ref: "#/components/schemas/relation"
+        meteringPoint:
+          $ref: "#/components/schemas/relation"
+      required:
+        - createdBy
+        - meteringPoint
+      additionalProperties: false
+    createdAt:
+      description: The creation timestamp of the resource.
+      type: string
+      format: date-time
+      examples:
+        - "2026-01-01T00:00:00Z"
+    updatedAt:
+      description: The last update timestamp of the resource.
+      type: string
+      format: date-time
+      examples:
+        - "2026-01-01T00:00:00Z"
+    meta:
+      type: object
+      properties:
+        createdAt:
+          $ref: "#/components/schemas/createdAt"
+        updatedAt:
+          $ref: "#/components/schemas/updatedAt"
+      required:
+        - createdAt
+        - updatedAt
+      additionalProperties: false
+    contract:
+      type: object
+      properties:
+        type:
+          description: The type of the resource.
+          type: string
+          enum:
+            - contract
+          examples:
+            - contract
+        id:
+          description: The unique identifier of the contract.
+          type: string
+          format: uuid
+          examples:
+            - 4ef727d1-b672-4166-a973-aa6e412b09bb
+        attributes:
+          $ref: "#/components/schemas/attributes"
+        relationships:
+          $ref: "#/components/schemas/relationships"
+        meta:
+          $ref: "#/components/schemas/meta"
+      required:
+        - type
+        - id
+        - attributes
+      additionalProperties: false
+    topLevelLinks:
+      description: Links related to the primary data or error response, as defined by JSON:API.
+      type: object
+      properties:
+        self:
+          description: A link to the resource itself.
+          type: string
+          format: uri
+          examples:
+            - https://test.elhub.no/v1/contracts/4ef727d1-b672-4166-a973-aa6e412b09bb
+      additionalProperties: false
+    response:
+      title: Contract Response
+      description: Schema for a contract response in the Contracts JSON:API, compliant with JSON:API v1.1.
+      type: object
+      properties:
+        data:
+          description: The primary data, either a single contract or an array of contracts.
+          type: array
+          items:
+            $ref: "#/components/schemas/contract"
+          uniqueItems: true
+        meta:
+          $ref: "#/components/schemas/meta"
+        links:
+          description: Links related to the contract response.
+          $ref: "#/components/schemas/topLevelLinks"
+      required:
+        - data
+      additionalProperties: false
+    error:
+      type: object
+      properties:
+        status:
+          description: The HTTP status code applicable to this problem, expressed as a string value.
+          type: string
+          examples:
+            - "400"
+            - "404"
+            - "500"
+        title:
+          description: A short, human-readable summary of the problem.
+          type: string
+          examples:
+            - Bad Request
+            - Contract Not Found
+            - Internal Server Error
+        detail:
+          description: A human-readable explanation specific to this occurrence of the problem.
+          type: string
+          examples:
+            - When the request is invalid
+            - Failed to get contract with contractId '4ef727d1-b672-4166-a973-aa6e412b09bb'
+            - An unexpected error occurred
+      required:
+        - status
+        - title
+        - detail
+      additionalProperties: false
+    request:
+      type: object
+      properties:
+        type:
+          description: The type of the resource.
+          type: string
+          enum:
+            - contract
+          examples:
+            - contract
+        attributes:
+          $ref: "#/components/schemas/attributes"
+        relationships:
+          $ref: "#/components/schemas/relationships"
+      required:
+        - type
+        - attributes
+        - relationships
+      additionalProperties: false
+    definitions-request:
+      type: object
+      properties:
+        data:
+          type: array
+          $ref: "#/components/schemas/request"
+        meta:
+          $ref: "#/components/schemas/meta"
+        error:
+          $ref: "#/components/schemas/error"
+      required:
+        - data
+      additionalProperties: false
   securitySchemes:
     bearerAuth:
       type: http

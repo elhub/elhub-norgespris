@@ -18,14 +18,23 @@ possible interfaces for the ecosystem.
 
 Version: v0.1 (Pre-release)
 
-## 📘 Contents
-
-- `docs/openapi.yaml` - OpenAPI 3.x specification
-- `docs/schemas/` – JSON Schemas defining domain models and payload structures
-- `docs/examples/` – Example request/response payloads
-
 > [!NOTE]
 > Please note that this is a specification repository only. Implementation details and code are tracked separately.
+
+## 📘 Contents
+
+- `docs/schemas/` – JSON Schemas defining domain models and payload structures
+- `docs/examples/` – Example request/response payloads
+- `docs/openapi.yaml` - OpenAPI 3.x specification
+- `docs/api-docs.yaml` - OpenAPI 3.x specification - bundled version
+
+### Bundling
+
+For bundling we use the npm package `@redocly/cli` and the command
+
+```bash
+redocly bundle openapi.yaml -o api-docs.yaml
+```
 
 ## 🚀 Getting Started
 
@@ -40,9 +49,9 @@ Version: v0.1 (Pre-release)
 
 We welcome your feedback and contributions. Use:
 
-* [Discussions](https://github.com/elhub/elhub-norgespris/discussions) – Please use the Discussions tab for open-ended feedback, questions and dialogue.
-* E-mail (developers) - If you have technical questions that are not suited for Github, contact us at: ![Dev Email](/docs/assets/mail-norgespris.png)
-* Other Requests - For other questions or requests, contact us using normal contact channels: ![Elhub Email](/docs/assets/mail-post.png)
+- [Discussions](https://github.com/elhub/elhub-norgespris/discussions) – Please use the Discussions tab for open-ended feedback, questions and dialogue.
+- E-mail (developers) - If you have technical questions that are not suited for Github, contact us at: ![Dev Email](/docs/assets/mail-norgespris.png)
+- Other Requests - For other questions or requests, contact us using normal contact channels: ![Elhub Email](/docs/assets/mail-post.png)
 
 See the
 [Contributing](https://github.com/elhub/auth-grant-manager/blob/main/.github/CONTRIBUTING.md) file for general guidelines.

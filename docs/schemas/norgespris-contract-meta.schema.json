@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2025-05/schema",
-  "$id": "https://api.elhub.no/schemas/meta.schema.json",
+  "$id": "https://api.elhub.no/schemas/norgespris-contract-meta.schema.json",
   "title": "Meta",
   "description": "Schema for meta information in the Contracts JSON:API.",
   "type": "object",

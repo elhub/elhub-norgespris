@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2025-05/schema",
-  "$id": "https://api.elhub.no/schemas/contract.schema.json",
+  "$id": "https://api.elhub.no/schemas/norgespris-contract.schema.json",
   "title": "Contract",
   "description": "Schema for a contract in the Contracts JSON:API, compliant with JSON:API v1.1.",
   "type": "object",
@@ -11,8 +11,8 @@
         "type": {
           "description": "The type of the resource.",
           "type": "string",
-          "enum": ["contracts"],
-          "examples": ["contracts"]
+          "enum": ["contract"],
+          "examples": ["contract"]
         },
         "id": {
           "description": "The unique identifier of the contract.",
@@ -40,8 +40,8 @@
         "type": {
           "description": "The type of the resource.",
           "type": "string",
-          "enum": ["contracts"],
-          "examples": ["contracts"]
+          "enum": ["contract"],
+          "examples": ["contract"]
         },
         "attributes": {
           "$ref": "norgespris-contract-attributes.schema.json#/definitions/attributes"
@@ -50,7 +50,7 @@
           "$ref": "norgespris-contract-relationships.schema.json#/definitions/relationships"
         }
       },
-      "required": ["type", "attributes"],
+      "required": ["type", "attributes", "relationships"],
       "additionalProperties": false
     }
   }
