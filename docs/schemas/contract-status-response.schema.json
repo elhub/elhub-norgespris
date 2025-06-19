@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2025-05/schema",
+  "$id": "https://api.elhub.no/schemas/contract-status-response.schema.json",
+  "title": "Contract Status Response",
+  "description": "Schema for the response containing contract status history in the Contracts JSON:API.",
+  "type": "object",
+  "properties": {
+    "data": {
+      "description": "Array of contract status entries.",
+      "type": "array",
+      "items": {
+        "$ref": "contract-status.schema.json#/definitions/contract-status"
+      }
+    },
+    "meta": {
+      "$ref": "norgespris-contract-meta.schema.json#/definitions/meta"
+    }
+  },
+  "required": ["data"],
+  "additionalProperties": false,
+  "definitions": {
+    "response": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "$ref": "contract-status-response.schema.json#/properties/data"
+        },
+        "meta": {
+          "$ref": "contract-status-response.schema.json#/properties/meta"
+        }
+      },
+      "required": ["data"],
+      "additionalProperties": false
+    }
+  }
+}

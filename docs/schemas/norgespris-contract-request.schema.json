@@ -10,13 +10,9 @@
       "properties": {
         "data": {
           "type": "array",
-          "$ref": "norgespris-contract.schema.json#/definitions/request"
-        },
-        "meta": {
-          "$ref": "norgespris-contract-meta.schema.json#/definitions/meta"
-        },
-        "error": {
-          "$ref": "json-api-error.schema.json#/definitions/error"
+          "items": {
+            "$ref": "norgespris-contract.schema.json#/definitions/request"
+          }
         }
       },
       "required": ["data"],

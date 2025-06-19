@@ -4,7 +4,7 @@ info:
   description: |
     API for managing contract information in the Elhub system.
     Contracts represent agreements on metering points in the Elhub system and is used to represent a variety of different relationships
-    that can exist on a metering point. Norgespris is a type of contract in the Elhub information model.
+    that can exist on a metering point. Norgespris is a type of contract in the Elhub information model. Set the server URL to match your environment.
   version: 0.0.1
   contact:
     name: team-wow
@@ -12,10 +12,17 @@ info:
     name: MIT
     url: https://opensource.org/licenses/MIT
 servers:
-  - url: http://127.0.0.0:8080/v1
+  - url: http://localhost:8080/v1
     description: Local test server
-  - url: https://test.elhub.no/v1
+  - url: https://market-processes-contracts-service-{environment}.elhub.cloud/v1
     description: Test server
+    variables:
+      environment:
+        default: test13
+        enum:
+          - test9
+          - test11
+          - test13
 security:
   - bearerAuth: []
 paths:
@@ -34,7 +41,7 @@ paths:
           schema:
             type: string
             enum:
-              - NorgesprisContract
+              - Norgespris
               - BalanceSupplyContract
               - GridAccessContract
               - ThirdPartyAccessContract
@@ -61,30 +68,30 @@ paths:
             type: string
             format: date-time
       responses:
-        "200":
+        '200':
           description: Successfully get contracts
           content:
             application/vnd.api+json:
               schema:
-                $ref: "#/components/schemas/ContractResponse"
-        "400":
+                $ref: '#/components/schemas/ContractResponse'
+        '400':
           description: Bad Request - When the request is invalid
           content:
             application/vnd.api+json:
               schema:
-                $ref: "#/components/schemas/Error"
-        "401":
+                $ref: '#/components/schemas/Error'
+        '401':
           description: Unauthorized
           content:
             application/vnd.api+json:
               schema:
-                $ref: "#/components/schemas/Error"
-        "500":
+                $ref: '#/components/schemas/Error'
+        '500':
           description: Internal Server Error
           content:
             application/vnd.api+json:
               schema:
-                $ref: "#/components/schemas/Error"
+                $ref: '#/components/schemas/Error'
     post:
       summary: Create a contract
       description: Create one or more contracts linked to meteringPointId(s).
@@ -94,38 +101,55 @@ paths:
         content:
           application/vnd.api+json:
             schema:
-              $ref: "#/components/schemas/ContractRequest"
+              $ref: '#/components/schemas/ContractRequest'
+            example:
+              data:
+                - type: contract
+                  attributes:
+                    contractType: Norgespris
+                    status: Activated
+                    validFrom: '2026-01-01'
+                    validTo: '2026-12-31'
+                  relationships:
+                    createdBy:
+                      data:
+                        type: Party
+                        id: GLN1234567890123
+                    meteringPoint:
+                      data:
+                        type: MeteringPoint
+                        id: MP123456789
       responses:
-        "201":
+        '201':
           description: Successfully created contract
           content:
             application/vnd.api+json:
               schema:
-                $ref: "#/components/schemas/ContractResponse"
-        "400":
+                $ref: '#/components/schemas/ContractResponse'
+        '400':
           description: Bad Request - When the request is invalid
           content:
             application/vnd.api+json:
               schema:
-                $ref: "#/components/schemas/Error"
-        "401":
+                $ref: '#/components/schemas/Error'
+        '401':
           description: Unauthorized
           content:
             application/vnd.api+json:
               schema:
-                $ref: "#/components/schemas/Error"
-        "403":
+                $ref: '#/components/schemas/Error'
+        '403':
           description: Forbidden
           content:
             application/vnd.api+json:
               schema:
-                $ref: "#/components/schemas/Error"
-        "500":
+                $ref: '#/components/schemas/Error'
+        '500':
           description: Internal Server Error
           content:
             application/vnd.api+json:
               schema:
-                $ref: "#/components/schemas/Error"
+                $ref: '#/components/schemas/Error'
     patch:
       summary: Update contracts
       description: Update a set of contracts.
@@ -135,38 +159,55 @@ paths:
         content:
           application/vnd.api+json:
             schema:
-              $ref: "#/components/schemas/ContractRequest"
+              $ref: '#/components/schemas/ContractRequest'
+            example:
+              data:
+                - type: contract
+                  attributes:
+                    contractType: Norgespris
+                    status: Activated
+                    validFrom: '2026-01-01'
+                    validTo: '2026-12-31'
+                  relationships:
+                    createdBy:
+                      data:
+                        type: Party
+                        id: GLN1234567890123
+                    meteringPoint:
+                      data:
+                        type: MeteringPoint
+                        id: MP123456789
       responses:
-        "200":
+        '200':
           description: Successfully updated contract
           content:
             application/vnd.api+json:
               schema:
-                $ref: "#/components/schemas/ContractResponse"
-        "400":
+                $ref: '#/components/schemas/ContractResponse'
+        '400':
           description: Bad Request - When the request is invalid
           content:
             application/vnd.api+json:
               schema:
-                $ref: "#/components/schemas/Error"
-        "401":
+                $ref: '#/components/schemas/Error'
+        '401':
           description: Unauthorized
           content:
             application/vnd.api+json:
               schema:
-                $ref: "#/components/schemas/Error"
-        "403":
+                $ref: '#/components/schemas/Error'
+        '403':
           description: Forbidden
           content:
             application/vnd.api+json:
               schema:
-                $ref: "#/components/schemas/Error"
-        "500":
+                $ref: '#/components/schemas/Error'
+        '500':
           description: Internal Server Error
           content:
             application/vnd.api+json:
               schema:
-                $ref: "#/components/schemas/Error"
+                $ref: '#/components/schemas/Error'
   /contracts/{contractId}:
     get:
       summary: Get a single contract by ID
@@ -180,30 +221,30 @@ paths:
           schema:
             type: string
       responses:
-        "200":
+        '200':
           description: Successfully get contract by ID
           content:
             application/vnd.api+json:
               schema:
-                $ref: "#/components/schemas/ContractResponse"
-        "400":
+                $ref: '#/components/schemas/ContractResponse'
+        '400':
           description: Bad Request - When the request is invalid
           content:
             application/vnd.api+json:
               schema:
-                $ref: "#/components/schemas/Error"
-        "401":
+                $ref: '#/components/schemas/Error'
+        '401':
           description: Unauthorized
           content:
             application/vnd.api+json:
               schema:
-                $ref: "#/components/schemas/Error"
-        "500":
+                $ref: '#/components/schemas/Error'
+        '500':
           description: Internal Server Error
           content:
             application/vnd.api+json:
               schema:
-                $ref: "#/components/schemas/Error"
+                $ref: '#/components/schemas/Error'
     patch:
       summary: Update a contract by ID
       description: Update a contract entity identified by ID.
@@ -220,61 +261,117 @@ paths:
         content:
           application/vnd.api+json:
             schema:
-              $ref: "#/components/schemas/ContractRequest"
+              $ref: '#/components/schemas/ContractRequest'
       responses:
-        "200":
+        '200':
           description: Successfully updated contract
           content:
             application/vnd.api+json:
               schema:
-                $ref: "#/components/schemas/ContractResponse"
-        "400":
+                $ref: '#/components/schemas/ContractResponse'
+        '400':
           description: Bad Request - When the request is invalid
           content:
             application/vnd.api+json:
               schema:
-                $ref: "#/components/schemas/Error"
-        "401":
+                $ref: '#/components/schemas/Error'
+        '401':
           description: Unauthorized
           content:
             application/vnd.api+json:
               schema:
-                $ref: "#/components/schemas/Error"
-        "403":
+                $ref: '#/components/schemas/Error'
+        '403':
           description: Forbidden
           content:
             application/vnd.api+json:
               schema:
-                $ref: "#/components/schemas/Error"
-        "500":
+                $ref: '#/components/schemas/Error'
+        '500':
           description: Internal Server Error
           content:
             application/vnd.api+json:
               schema:
-                $ref: "#/components/schemas/Error"
+                $ref: '#/components/schemas/Error'
+  /contracts/{contractId}/status:
+    get:
+      summary: Get contract status history
+      description: Get the status history for a specific contract, ordered by creation date (most recent first).
+      operationId: getContractStatusHistory
+      parameters:
+        - name: contractId
+          in: path
+          description: The ID of the contract for which the status history will be retrieved.
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Successfully retrieved contract status history
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ContractStatusResponse'
+        '400':
+          description: Bad Request - When the request is invalid
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Contract not found
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/Error'
 components:
   schemas:
     ContractResponse:
       allOf:
-        - $ref: "#/components/schemas/response"
+        - $ref: '#/components/schemas/response'
     ContractRequest:
       allOf:
-        - $ref: "#/components/schemas/definitions-request"
+        - $ref: '#/components/schemas/definitions-request'
     Contract:
       allOf:
-        - $ref: "#/components/schemas/contract"
+        - $ref: '#/components/schemas/contract'
     ContractAttributes:
       allOf:
-        - $ref: "#/components/schemas/attributes"
+        - $ref: '#/components/schemas/attributes'
+    ContractStatusResponse:
+      allOf:
+        - $ref: '#/components/schemas/definitions-response'
+    ContractStatus:
+      allOf:
+        - $ref: '#/components/schemas/contract-status'
+    ContractStatusAttributes:
+      allOf:
+        - $ref: '#/components/schemas/definitions-attributes'
+    ContractStatusRelationships:
+      allOf:
+        - $ref: '#/components/schemas/definitions-relationships'
     Meta:
       allOf:
-        - $ref: "#/components/schemas/meta"
+        - $ref: '#/components/schemas/meta'
     Error:
       allOf:
-        - $ref: "#/components/schemas/error"
+        - $ref: '#/components/schemas/error'
     Relationships:
       allOf:
-        - $ref: "#/components/schemas/relationships"
+        - $ref: '#/components/schemas/relationships'
     contractType:
       description: The type of the contract.
       type: string
@@ -298,25 +395,25 @@ components:
         - string
       format: date
       examples:
-        - "2025-10-01"
+        - '2025-10-01'
     endDate:
       description: The end date of the contract's validity period.
       type:
         - string
       format: date
       examples:
-        - "2026-12-31"
+        - '2026-12-31'
     attributes:
       type: object
       properties:
         contractType:
-          $ref: "#/components/schemas/contractType"
+          $ref: '#/components/schemas/contractType'
         status:
-          $ref: "#/components/schemas/status"
+          $ref: '#/components/schemas/status'
         validFrom:
-          $ref: "#/components/schemas/startDate"
+          $ref: '#/components/schemas/startDate'
         validTo:
-          $ref: "#/components/schemas/endDate"
+          $ref: '#/components/schemas/endDate'
       required:
         - contractType
       additionalProperties: false
@@ -329,7 +426,7 @@ components:
         data:
           type:
             - object
-            - "null"
+            - 'null'
           properties:
             type:
               description: The type of the related resource.
@@ -361,12 +458,12 @@ components:
     relationships:
       type:
         - object
-        - "null"
+        - 'null'
       properties:
         createdBy:
-          $ref: "#/components/schemas/relation"
+          $ref: '#/components/schemas/relation'
         meteringPoint:
-          $ref: "#/components/schemas/relation"
+          $ref: '#/components/schemas/relation'
       required:
         - createdBy
         - meteringPoint
@@ -376,20 +473,20 @@ components:
       type: string
       format: date-time
       examples:
-        - "2026-01-01T00:00:00Z"
+        - '2026-01-01T00:00:00Z'
     updatedAt:
       description: The last update timestamp of the resource.
       type: string
       format: date-time
       examples:
-        - "2026-01-01T00:00:00Z"
+        - '2026-01-01T00:00:00Z'
     meta:
       type: object
       properties:
         createdAt:
-          $ref: "#/components/schemas/createdAt"
+          $ref: '#/components/schemas/createdAt'
         updatedAt:
-          $ref: "#/components/schemas/updatedAt"
+          $ref: '#/components/schemas/updatedAt'
       required:
         - createdAt
         - updatedAt
@@ -411,11 +508,11 @@ components:
           examples:
             - 4ef727d1-b672-4166-a973-aa6e412b09bb
         attributes:
-          $ref: "#/components/schemas/attributes"
+          $ref: '#/components/schemas/attributes'
         relationships:
-          $ref: "#/components/schemas/relationships"
+          $ref: '#/components/schemas/relationships'
         meta:
-          $ref: "#/components/schemas/meta"
+          $ref: '#/components/schemas/meta'
       required:
         - type
         - id
@@ -441,13 +538,13 @@ components:
           description: The primary data, either a single contract or an array of contracts.
           type: array
           items:
-            $ref: "#/components/schemas/contract"
+            $ref: '#/components/schemas/contract'
           uniqueItems: true
         meta:
-          $ref: "#/components/schemas/meta"
+          $ref: '#/components/schemas/meta'
         links:
           description: Links related to the contract response.
-          $ref: "#/components/schemas/topLevelLinks"
+          $ref: '#/components/schemas/topLevelLinks'
       required:
         - data
       additionalProperties: false
@@ -458,9 +555,9 @@ components:
           description: The HTTP status code applicable to this problem, expressed as a string value.
           type: string
           examples:
-            - "400"
-            - "404"
-            - "500"
+            - '400'
+            - '404'
+            - '500'
         title:
           description: A short, human-readable summary of the problem.
           type: string
@@ -491,9 +588,9 @@ components:
           examples:
             - contract
         attributes:
-          $ref: "#/components/schemas/attributes"
+          $ref: '#/components/schemas/attributes'
         relationships:
-          $ref: "#/components/schemas/relationships"
+          $ref: '#/components/schemas/relationships'
       required:
         - type
         - attributes
@@ -504,11 +601,116 @@ components:
       properties:
         data:
           type: array
-          $ref: "#/components/schemas/request"
+          items:
+            $ref: '#/components/schemas/request'
+      required:
+        - data
+      additionalProperties: false
+    type:
+      description: The type of the resource.
+      type: string
+      enum:
+        - contract-status
+    id:
+      description: The unique identifier of the contract status.
+      type: string
+      format: uuid
+      examples:
+        - 123e4567-e89b-12d3-a456-426614174000
+    properties-status:
+      description: The status of the contract.
+      type: string
+      enum:
+        - Initiated
+        - Cancelled
+        - Activated
+        - Expired
+      examples:
+        - Activated
+    createdBy:
+      description: The identifier of who created this status entry.
+      type: string
+      examples:
+        - GLN1234567890123
+    properties-createdAt:
+      description: When this status was created (RFC 3339).
+      type: string
+      format: date-time
+      examples:
+        - '2025-06-16T10:30:00Z'
+    definitions-attributes:
+      type: object
+      properties:
+        status:
+          $ref: '#/components/schemas/properties-status'
+        createdBy:
+          $ref: '#/components/schemas/createdBy'
+        createdAt:
+          $ref: '#/components/schemas/properties-createdAt'
+      required:
+        - status
+        - createdBy
+        - createdAt
+      additionalProperties: false
+    properties-contract:
+      description: The contract this status belongs to.
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            type:
+              type: string
+              enum:
+                - Contract
+            id:
+              type: string
+              format: uuid
+              examples:
+                - 123e4567-e89b-12d3-a456-426614174000
+          required:
+            - type
+            - id
+          additionalProperties: false
+      required:
+        - data
+      additionalProperties: false
+    definitions-relationships:
+      type: object
+      properties:
+        contract:
+          $ref: '#/components/schemas/properties-contract'
+      required:
+        - contract
+      additionalProperties: false
+    contract-status:
+      type: object
+      properties:
+        type:
+          $ref: '#/components/schemas/type'
+        id:
+          $ref: '#/components/schemas/id'
+        attributes:
+          $ref: '#/components/schemas/definitions-attributes'
+        relationships:
+          $ref: '#/components/schemas/definitions-relationships'
+      required:
+        - type
+        - attributes
+        - relationships
+      additionalProperties: false
+    data:
+      description: Array of contract status entries.
+      type: array
+      items:
+        $ref: '#/components/schemas/contract-status'
+    definitions-response:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/data'
         meta:
-          $ref: "#/components/schemas/meta"
-        error:
-          $ref: "#/components/schemas/error"
+          $ref: '#/components/schemas/meta'
       required:
         - data
       additionalProperties: false
