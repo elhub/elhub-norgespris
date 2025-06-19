@@ -45,7 +45,7 @@ redocly bundle openapi.yaml -o api-docs.yaml
 2. Navigate the specification files in the openapi/ and schemas/ directories.
 3. Use an IDE or similar tool with Swagger UI support visualize and explore the OpenAPI spec locally.
 
-## The Norgespris Life Cycle
+## ♻️ The Norgespris Life Cycle
 
 Read more about the Norgespris Life Cycle [here](/docs/contracts/norgespris/README.md)
 
