@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2025-05/schema",
+  "$id": "https://api.elhub.no/schemas/contract-status-relationships.schema.json",
+  "title": "Contract Status Relationships",
+  "description": "Schema for the relationships of a contract status in the Contracts JSON:API.",
+  "type": "object",
+  "properties": {
+    "contract": {
+      "description": "The contract this status belongs to.",
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "object",
+          "properties": {
+            "type": {
+              "type": "string",
+              "enum": ["Contract"]
+            },
+            "id": {
+              "type": "string",
+              "format": "uuid",
+              "examples": ["123e4567-e89b-12d3-a456-426614174000"]
+            }
+          },
+          "required": ["type", "id"],
+          "additionalProperties": false
+        }
+      },
+      "required": ["data"],
+      "additionalProperties": false
+    }
+  },
+  "required": ["contract"],
+  "additionalProperties": false,
+  "definitions": {
+    "relationships": {
+      "type": "object",
+      "properties": {
+        "contract": {
+          "$ref": "contract-status-relationships.schema.json#/properties/contract"
+        }
+      },
+      "required": ["contract"],
+      "additionalProperties": false
+    }
+  }
+}

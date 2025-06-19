@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2025-05/schema",
+  "$id": "https://api.elhub.no/schemas/contract-status-attributes.schema.json",
+  "title": "Contract Status Attributes",
+  "description": "Schema for the attributes of a contract status in the Contracts JSON:API.",
+  "type": "object",
+  "properties": {
+    "status": {
+      "description": "The status of the contract.",
+      "type": "string",
+      "enum": ["Initiated", "Cancelled", "Activated", "Expired"],
+      "examples": ["Activated"]
+    },
+    "createdBy": {
+      "description": "The identifier of who created this status entry.",
+      "type": "string",
+      "examples": ["GLN1234567890123"]
+    },
+    "createdAt": {
+      "description": "When this status was created (RFC 3339).",
+      "type": "string",
+      "format": "date-time",
+      "examples": ["2025-06-16T10:30:00Z"]
+    }
+  },
+  "required": ["status", "createdBy", "createdAt"],
+  "additionalProperties": false,
+  "definitions": {
+    "attributes": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "$ref": "contract-status-attributes.schema.json#/properties/status"
+        },
+        "createdBy": {
+          "$ref": "contract-status-attributes.schema.json#/properties/createdBy"
+        },
+        "createdAt": {
+          "$ref": "contract-status-attributes.schema.json#/properties/createdAt"
+        }
+      },
+      "required": ["status", "createdBy", "createdAt"],
+      "additionalProperties": false
+    }
+  }
+}
