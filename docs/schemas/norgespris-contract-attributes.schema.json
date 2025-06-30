@@ -11,12 +11,6 @@
       "enum": ["Norgespris"],
       "examples": ["Norgespris"]
     },
-    "status": {
-      "description": "The status of the contract.",
-      "type": "string",
-      "enum": ["Initiated", "Cancelled", "Activated", "Expired"],
-      "examples": ["Initiated"]
-    },
     "startDate": {
       "description": "The start date of the contract's validity period.",
       "type": ["string"],
@@ -28,6 +22,11 @@
       "type": ["string"],
       "format": "date",
       "examples": ["2026-12-31"]
+    },
+    "isCancelled": {
+      "description": "Whether the contract is cancelled.",
+      "type": "boolean",
+      "examples": [false]
     }
   },
   "additionalProperties": false,
@@ -38,14 +37,14 @@
         "contractType": {
           "$ref": "norgespris-contract-attributes.schema.json#/properties/contractType"
         },
-        "status": {
-          "$ref": "norgespris-contract-attributes.schema.json#/properties/status"
-        },
-        "validFrom": {
+        "startDate": {
           "$ref": "norgespris-contract-attributes.schema.json#/properties/startDate"
         },
-        "validTo": {
+        "endDate": {
           "$ref": "norgespris-contract-attributes.schema.json#/properties/endDate"
+        },
+        "isCancelled": {
+          "$ref": "norgespris-contract-attributes.schema.json#/properties/isCancelled"
         }
       },
       "required": ["contractType"],

@@ -1,27 +1,21 @@
 {
   "$schema": "https://json-schema.org/draft/2025-05/schema",
-  "$id": "https://api.elhub.no/schemas/norgespris-contract-relationship-link.schema.json",
-  "title": "Relationship Link",
-  "description": "Schema for relationship links in the Contracts JSON:API, compliant with JSON:API v1.0.",
+  "$id": "https://api.elhub.no/schemas/norgespris-contract-relationships-create.schema.json",
+  "title": "Relationship Link (Create)",
+  "description": "Schema for relationship links in the Contracts JSON:API for contract creation (POST).",
   "type": "object",
-  "properties": {
-    "relationships": {
-      "$ref": "#/definitions/relationships"
-    }
-  },
   "definitions": {
     "relationships": {
       "type": ["object", "null"],
       "properties": {
-        "updatedBy": {
+        "createdBy": {
           "$ref": "#/definitions/relation"
         },
         "meteringPoint": {
           "$ref": "#/definitions/relation"
         }
       },
-      "required": ["updatedBy"],
-      "additionalProperties": false
+      "required": ["createdBy"]
     },
     "relation": {
       "type": "object",
@@ -44,8 +38,7 @@
               "examples": ["GLN", "MP123"]
             }
           },
-          "required": ["type", "id"],
-          "additionalProperties": false
+          "required": ["type", "id"]
         },
         "meta": {
           "type": "object",
@@ -56,8 +49,7 @@
         { "required": ["links"] },
         { "required": ["data"] },
         { "required": ["meta"] }
-      ],
-      "additionalProperties": false
+      ]
     }
   }
 }
