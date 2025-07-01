@@ -1,9 +1,0 @@
-@startuml Norgespris Status State Machine
-
-[*] --> Initiated : User wants Norgespris for meteringpoint
-
-Initiated --> Activated : After 14 Days
-Activated --> Expired : Year-End (Dec 31)
-Expired --> [*] : End
-
-@enduml
