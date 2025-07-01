@@ -12,11 +12,12 @@
           "type": "array",
           "items": {
             "$ref": "norgespris-contract.schema.json#/definitions/request"
-          }
+          },
+          "minItems": 1,
+          "maxItems": 100
         }
       },
-      "required": ["data"],
-      "additionalProperties": false
+      "required": ["data"]
     }
   }
 }

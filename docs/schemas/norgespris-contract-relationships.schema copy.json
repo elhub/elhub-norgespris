@@ -13,6 +13,9 @@
     "relationships": {
       "type": ["object", "null"],
       "properties": {
+        "updatedBy": {
+          "$ref": "#/definitions/relation"
+        },
         "createdBy": {
           "$ref": "#/definitions/relation"
         },
@@ -20,7 +23,7 @@
           "$ref": "#/definitions/relation"
         }
       },
-      "required": ["createdBy", "meteringPoint"],
+      "required": ["updatedBy"],
       "additionalProperties": false
     },
     "relation": {

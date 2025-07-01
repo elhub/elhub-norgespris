@@ -19,10 +19,18 @@
     "error": {
       "type": "object",
       "properties": {
+        "id": {
+          "type": "string",
+          "description": "A unique identifier for this particular occurrence of the problem."
+        },
         "status": {
           "description": "The HTTP status code applicable to this problem, expressed as a string value.",
           "type": "string",
           "examples": ["400", "404", "500"]
+        },
+        "code": {
+          "type": "string",
+          "description": "An application-specific error code, expressed as a string value."
         },
         "title": {
           "description": "A short, human-readable summary of the problem.",
@@ -41,6 +49,20 @@
             "Failed to get contract with contractId '4ef727d1-b672-4166-a973-aa6e412b09bb'",
             "An unexpected error occurred"
           ]
+        },
+        "source": {
+          "type": "object",
+          "description": "An object containing references to the primary source of the error.",
+          "properties": {
+            "pointer": { "type": "string" },
+            "parameter": { "type": "string" },
+            "header": { "type": "string" }
+          },
+          "additionalProperties": false
+        },
+        "meta": {
+          "type": "object",
+          "description": "A meta object containing non-standard meta-information about the error."
         }
       },
       "required": ["status", "title", "detail"],
