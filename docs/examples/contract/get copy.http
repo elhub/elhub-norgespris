@@ -1,5 +1,5 @@
 ### Get all contracts with filters
-GET https://api.elhub.no/v1/contracts?filter[contractType]=Norgespris&filter[meteringPoint.id]=696969696969
+GET https://api.elhub.no/v1/contracts?filter[contractType]=Norgespris&filter[meteringPoint.id]=12345678910
 Authorization: Bearer {{jwt_token}}
 Accept: application/vnd.api+json
 
@@ -25,7 +25,7 @@ Accept: application/vnd.api+json
 #         "meteringPoint": {
 #           "data": {
 #             "type": "MeteringPoint",
-#             "id": "696969696969"
+#             "id": "12345678910"
 #           }
 #         }
 #       }
