@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api.elhub.no/schemas/norgespris-single-contract-request.schema.json",
+  "title": "Single Contract Request",
+  "description": "Schema for a single contract request in the Contracts JSON:API, used for PATCH operations on specific contracts.",
+  "type": "object",
+  "definitions": {
+    "request": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "object",
+          "properties": {
+            "type": {
+              "description": "The type of the resource.",
+              "type": "string",
+              "enum": ["contract"],
+              "examples": ["contract"]
+            },
+            "id": {
+              "description": "The unique identifier of the contract (required for PATCH operations).",
+              "type": "string",
+              "format": "uuid",
+              "examples": ["4ef727d1-b672-4166-a973-aa6e412b09bb"]
+            },
+            "attributes": {
+              "$ref": "norgespris-contract-attributes.schema.json#/definitions/attributes"
+            },
+            "relationships": {
+              "$ref": "norgespris-contract-relationships.schema.json#/definitions/relationships"
+            }
+          },
+          "required": ["type", "id", "attributes", "relationships"]
+        }
+      },
+      "required": ["data"]
+    }
+  }
+}

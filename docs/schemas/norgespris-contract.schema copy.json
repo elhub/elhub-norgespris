@@ -43,15 +43,27 @@
           "enum": ["contract"],
           "examples": ["contract"]
         },
+        "id": {
+          "description": "The unique identifier of the contract.",
+          "type": "string",
+          "format": "uuid",
+          "examples": ["4ef727d1-b672-4166-a973-aa6e412b09bb"]
+        },
         "attributes": {
           "$ref": "norgespris-contract-attributes.schema.json#/definitions/attributes"
         },
         "relationships": {
-          "$ref": "norgespris-contract-relationships.schema.json#/definitions/relationships"
+          "oneOf": [
+            {
+              "$ref": "norgespris-contract-relationships-create.schema.json#/definitions/relationships"
+            },
+            {
+              "$ref": "norgespris-contract-relationships.schema.json#/definitions/relationships"
+            }
+          ]
         }
       },
-      "required": ["type", "attributes", "relationships"],
-      "additionalProperties": false
+      "required": ["type", "attributes", "relationships"]
     }
   }
 }
