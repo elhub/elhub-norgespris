@@ -15,6 +15,9 @@ possible interfaces for the ecosystem.
 > These specifications are under active development and subject to change. The purpose of releasing this at this
 > early stage is to give opportunities for feedback and (if necessary) to iterate over the solution. We recommend
 > syncing regularly to stay up to date with the latest changes.
+>
+> ℹ️ Our live swagger documentation can be found here: https://api-mt1.elhub.no/contract-service/v1.
+> It is intended to be up to date with the latest changes.
 
 Version: v0.1 (Pre-release)
 
