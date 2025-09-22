@@ -1,8 +1,6 @@
 # Elhub - Norgespris
 
-This is the external project repository for the Norgespris project @ Elhub. This repository contains OpenAPI
-specifications and JSON schemas for interfaces to be used by external systems that need to read (and write)
-data about Norgespris to the Elhub system.
+This is an external project repository containing diagrams and information about the Norgespris project @ Elhub.
 
 The purpose of this repository is to facilitate early transparency and collaboration with Market Parties and
 System vendors in the power market. By making the specifications publicly available, we invite developers,
@@ -12,9 +10,7 @@ possible interfaces for the ecosystem.
 ## 📌 Status
 
 > [!IMPORTANT]
-> These specifications are under active development and subject to change. The purpose of releasing this at this
-> early stage is to give opportunities for feedback and (if necessary) to iterate over the solution. We recommend
-> syncing regularly to stay up to date with the latest changes.
+> All documentation and underlying systems are under active development and subject to change.
 >
 > ℹ️ Our live swagger documentation can be found here: https://api-mt1.elhub.no/contract-service/v1.
 > It is intended to be up to date with the latest changes.
@@ -22,31 +18,7 @@ possible interfaces for the ecosystem.
 Version: v0.1 (Pre-release)
 
 > [!NOTE]
-> Please note that this is a specification repository only. Implementation details and code are tracked separately.
-
-## 📘 Contents
-
-- `docs/schemas/` – JSON Schemas defining domain models and payload structures
-- `docs/examples/` – Example request/response payloads
-- `docs/openapi.yaml` - OpenAPI 3.x specification
-- `docs/api-docs.yaml` - OpenAPI 3.x specification - bundled version
-
-### Bundling
-
-For bundling we use the npm package `@redocly/cli` and the command
-
-```bash
-redocly bundle openapi.yaml -o api-docs.yaml
-```
-
-## 🚀 Getting Started
-
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/elhub/elhub-norgespris.git
-   ```
-2. Navigate the specification files in the openapi/ and schemas/ directories.
-3. Use an IDE or similar tool with Swagger UI support visualize and explore the OpenAPI spec locally.
+> Please note that this is a documentation repository only. Implementation details and code are tracked separately.
 
 ## ♻️ The Norgespris Life Cycle
 
