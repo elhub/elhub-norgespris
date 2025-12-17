@@ -12,7 +12,7 @@ possible interfaces for the ecosystem.
 > [!IMPORTANT]
 > All documentation and underlying systems are under active development and subject to change.
 >
-> ℹ️ Our live swagger documentation can be found here: https://api-mt1.elhub.no/contract-service/v1.
+> ℹ️ Our live swagger documentation can be found here: https://api.elhub.no/contract-service/v1.
 > It is intended to be up to date with the latest changes.
 
 Version: v0.1 (Pre-release)
